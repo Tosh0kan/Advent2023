@@ -1,7 +1,6 @@
 import re
 import time
 
-
 # @jit(nopython=True)
 def main() -> None:
     with open(r"D:\01 Libraries\Documents\Coding\Advent of Code\Advent2023\Day 1\puzzle.txt",
