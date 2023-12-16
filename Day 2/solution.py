@@ -17,16 +17,29 @@ def input_2_dict(inp_f: str) -> dict:
         for set in sets:
             t_list: list[str] = [e for e in set.split(', ')]
             d_list = []
-            for e in t_list:
-                d_list.append({e.split()[1]: int(e.split()[0])})
+            d_list.append({e.split()[1]: int(e.split()[0]) for e in t_list})
             puzzle_dict.setdefault(game, []).append(d_list)
 
-    with open(rf"{inp_f.split('.')[0]}.json","w", encoding="utf-8") as f:
-        f.write(json.dumps(puzzle_dict, indent=4))
+    # with open(rf"{inp_f.split('.')[0]}.json","w", encoding="utf-8") as f:
+    #     f.write(json.dumps(puzzle_dict, indent=4))
     return puzzle_dict
 
+def valid_game_sum(game:str, set_list: list[dict]) -> int:
+    for set in set_list:
+        for showing in set:
+            for color, ammount in showing.items():
+                if ammount > elven_cubes[color]:
+                    return 0
+    return int(game.split()[1])
+
+
+
 def main():
-    input_2_dict(r'D:\01 Libraries\Documents\Coding\Advent of Code\Advent2023\Day 2\input_example.txt')
+    game_registry = input_2_dict(r'D:\01 Libraries\Documents\Coding\Advent of Code\Advent2023\Day 2\input_example.txt')
+    total = 0
+    for game, set_list in game_registry.items():
+        total += valid_game_sum(game, set_list)
+    print(total)
 
 if __name__ == "__main__":
     print(timeit.timeit(main, number=1))
