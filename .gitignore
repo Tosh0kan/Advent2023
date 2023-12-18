@@ -52,6 +52,7 @@ coverage.xml
 cover/
 *example*
 *.json
+*idea*
 
 # Translations
 *.mo
