@@ -1,6 +1,5 @@
 import json
 import timeit
-from pprint import pprint
 
 elven_cubes = {'red': 12, 'green': 13, 'blue': 14}
 
@@ -32,13 +31,25 @@ def valid_game_sum(game:str, set_list: list[dict]) -> int:
                     return 0
     return int(game.split()[1])
 
+def power_cubes(set_list: list[dict]) -> int:
+    max_cubes = {'red': 0, 'blue': 0, 'green': 0}
+    for set in set_list:
+        for showing in set:
+            for color, ammount in showing.items():
+                if ammount > max_cubes[color]:
+                    max_cubes[color] = ammount
 
+    return max_cubes['red'] * max_cubes['blue'] * max_cubes['green']
 
 def main():
-    game_registry = input_2_dict(r'D:\01 Libraries\Documents\Coding\Advent of Code\Advent2023\Day 2\input.txt')
+    # game_registry = input_2_dict(r'D:\01 Libraries\Documents\Coding\Advent of Code\Advent2023\Day 2\input_example.txt')
+    with open(r'.\Day 2\input.json', 'r', encoding='utf-8'
+              ) as f:
+        game_registry = json.loads(f.read())
     total = 0
     for game, set_list in game_registry.items():
-        total += valid_game_sum(game, set_list)
+        # total += valid_game_sum(game, set_list)
+        total += power_cubes(set_list)
     print(total)
 
 if __name__ == "__main__":
